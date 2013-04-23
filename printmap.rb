@@ -23,17 +23,16 @@ def print_file (filename)  #Hela Funktionen för att söka igenom en mapp och pr
 		#puts Dir['*gs if'] 
 		#puts Dir['*png']
 
-
-
-	#Devil.with_image('*jpg') do |img|
-    #img.thumbnail2(150)
-    #img.gamma_correct(1.6)
-    #img.rotate(90)
-    #img.save("Desert_thumb.jpg")
-
-
-		puts baba[3]                          #anropar Dir.ARRAY
-		puts baba[2]
+		i=0         #Börja iterationen på 0
+      while i < bilderna.length     #itterera så länge i är mindre än längden på array så det fungerar för hur många bilder som helst. Vi vet ju inte hur många bilder som finns i mappen
+     
+      Devil.with_image(bilderna[i]) do |img|  #Devil används för att skapa thumbnails
+            img.thumbnail2(150)
+            img.gamma_correct(1.6)
+            img.save("thumbnail_"+bilderna[i]) #Lägger till thumbnail i namnet för bilderna som blivit thumbnails
+              end 
+    i=i+1  #Stega ett steg och kör om while loopen 
+    end
 
 	rescue                 #om mappen inte finns, frågar den igen som en while loop
 	 puts "Mappen existera inte i din dator. Kontrollera vart den ligger och var vanligen skriv den igen"
