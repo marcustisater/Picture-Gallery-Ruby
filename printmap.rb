@@ -36,9 +36,21 @@ class Searching
 end
 end
 
-  
+fileHtml = File.new("bildgalleri.html", "w+")  #skapar en html fil (marcus.html)
+fileHtml.puts "<!DOCTYPE html>"  #standard HTML kod härefter...
+fileHtml.puts "<HTML><BODY BGCOLOR='green'>"
+fileHtml.puts "<CENTER>this is my crappy webpage</CENTER><br>"
+fileHtml.puts "<CENTER><FONT COLOR='teal'> Jag heter Marcus </FONT></CENTER>"
+
+
 test = Searching.new()
 folder = test.ask_name()  #anropar funktionen
 test.print_file(folder) #skriver ut
-puts "Whooooo!, Thumbnails finns i C:/Temp/test"
+puts "Whooooooo, Check your HTML page (marcus.html)"
+
+
+Dir.glob("C:/Temp/test/thumbnail*").each do |add|   #Här skriv mina bilder ut på HTML hemsidan. Glob tar ifrån temp mappen/test/ och sedan alla som börjar på thumbnails
+fileHtml.puts "<img src='#{add}'>" 
+end
+fileHtml.puts "</BODY></HTML>"  #avslutar html med </body> </html> tags.
 
