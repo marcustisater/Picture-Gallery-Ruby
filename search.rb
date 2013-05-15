@@ -1,6 +1,7 @@
 require 'Devil'
 require 'fileutils'
 
+
 class Searching                                           #Class som håller alla våra metoder.  
   @@bilder                                                #Class variabel som håller bilderna
   @@thumbnail                                             #Class variable som håller alla thumbnails 
@@ -15,26 +16,24 @@ class Searching                                           #Class som håller all
       sleep 2.0                                           #Programmerare måste få ha lite roligt också 
       puts "Detta kan ta ett tag."
       Dir.chdir(filename)                                 #Byt till det directory som vi har angett.
-      sourcefolder=Dir.pwd                                #Ta ut folder sökvägen
-      bilderna = Dir['*.jpg'] 
-      #puts Dir['*.gif']
-      #Dir['*png']
-      @@bilder=bilderna
-      sourcefolder = sourcefolder + "/*"                  #lägg till * till foldersökvägen så den kan användas i Dir.glob samt i FilUtils.cp metoderna.
-      Dir.glob(sourcefolder) {|f| FileUtils.cp File.expand_path(f), "c:/Temp/test" } #Kopierar filerna till en temp folder OBS foldern måste finnas får fixa detta senare.
+
+      
+      @@bilder = Dir.glob('**/*.{jpg,png,gif}')
+                #lägg till * till foldersökvägen så den kan användas i Dir.glob samt i FilUtils.cp metoderna.
+      @@bilder.each {|f| FileUtils.cp File.expand_path(f), "c:/Temp/test" } #Kopierar filerna till en temp folder OBS foldern måste finnas får fixa detta senare.
       Dir.chdir("C:/Temp/test")                           #Ändrar directoryt till temp foldern så thumbnails vi skapar nedan sparas där.
       i=0                                                 #Börja iterationen på 0
-      while i < bilderna.length                           #itterera så länge i är mindre än längden på array så det fungerar för hur många bilder som helst.  
-      Devil.with_image(bilderna[i]) do |img|              #Devil används för att skapa thumbnails
+      while i < @@bilder.length                           #itterera så länge i är mindre än längden på array så det fungerar för hur många bilder som helst.  
+      Devil.with_image(@@bilder[i]) do |img|              #Devil används för att skapa thumbnails
                      img.thumbnail2(150)
-                     img.save("thumbnail_"+bilderna[i])   #Lägger till thumbnail i namnet för bilderna som blivit thumbnails
+                     img.save("thumbnail_"+@@bilder[i])   #Lägger till thumbnail i namnet för bilderna som blivit thumbnails
               end 
               
     i=i+1                                                 #Stega ett steg och kör om while loopen
+    @@thumbnails=Dir['thumbnail*']
     
     end
   
-    @@thumbnails=Dir['thumbnail*']
     rescue                                                #om mappen inte finns, frågar den igen som en while loop
      puts "Mappen existera inte i din dator. Kontrollera vart den ligger och var vanligen skriv igen"
      file = ask_name()                                    #anropar funktionen
