@@ -6,7 +6,7 @@ class Searching                                           #Class som håller all
   @@bilder                                                #Class variabel som håller bilderna
   @@thumbnail                                             #Class variable som håller alla thumbnails 
   def ask_name()                                          #funktion för gets.chomp (Fråga vilken mapp)
-    puts "Skriv in vart i datorn dina bilder ligger i for mapp"
+    puts "Skriv in vart i datorn dina bilder ligger i for mapp (mapp adressen)"
     return gets.chomp 
   end
   
@@ -19,8 +19,7 @@ class Searching                                           #Class som håller all
 
       
       @@bilder = Dir.glob('**/*.{jpg,png,gif}')
-                #lägg till * till foldersökvägen så den kan användas i Dir.glob samt i FilUtils.cp metoderna.
-      @@bilder.each {|f| FileUtils.cp File.expand_path(f), "c:/Temp/test" } #Kopierar filerna till en temp folder OBS foldern måste finnas får fixa detta senare.
+      @@bilder.each {|f| FileUtils.cp File.expand_path(f), "c:/Temp/test" } #Kopierar filerna till en temp folder.(cp gör koperingmetoden och expand_path berättar vilken mapp) 
       Dir.chdir("C:/Temp/test")                           #Ändrar directoryt till temp foldern så thumbnails vi skapar nedan sparas där.
       i=0                                                 #Börja iterationen på 0
       while i < @@bilder.length                           #itterera så länge i är mindre än längden på array så det fungerar för hur många bilder som helst.  
@@ -48,11 +47,10 @@ def htmlsidan                                             #Metoden för att skap
   fileHtml.puts "<HTML><BODY BGCOLOR='black'>"
   fileHtml.puts "<CENTER><FONT COLOR='white'><TH><h1>Marcus Bildgalleri hemsida</h1></TH></FONT></CENTER><br>"
   fileHtml.puts "<TABLE BORDER='1' ALIGN='center'>"
-  fileHtml.puts "<TR><FONT COLOR='white'><TH>Bild Galleri</TH></FONT></TR>"
   i = 0                                                   #Starta en räknare för att itterera genom alla thumbnails.     
   td = 0                                                  #Starta en räknare för att dela upp bilderna i rader om fyra bilder-   
   while i < @@thumbnails.length                           #Starta while loopen som går igenom alla thumnails och skriver ut dem på htmlsidan.
-  fileHtml.puts "<TD><FONT COLOR='RED'><a href=\"#{@@bilder[i]}\"><img src=\"#{@@thumbnails[i]}\"></a></FONT></TD>" #Själva utskriften av thumbnails.
+  fileHtml.puts "<TD><a href=\"#{@@bilder[i]}\"><img src=\"#{@@thumbnails[i]}\"></a></FONT></TD>" #Själva utskriften av thumbnails.
   i=i+1                                                   #Räknare för thumnails itterering ökas med ett.  
   td = td+1                                               #Räknare för rad brytningen(fyra bilder per rad) ökas med ett.
   if td == 4                                              #Anger antalet av bilder per rad  
