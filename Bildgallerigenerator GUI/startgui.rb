@@ -3,5 +3,5 @@ require 'Devil'
 require 'fileutils'
 require 'tk'
 
-test = Searching.new()
-test.grafiken
+run = Searching.new()
+run.grafiken

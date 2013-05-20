@@ -6,15 +6,17 @@ class Searching                                           #Class som håller all
   @@bilder                                                #Class variabel som håller bilderna
   @@thumbnail                                             #Class variable som håller alla thumbnails 
   def ask_name()                                          #funktion för gets.chomp (Fråga vilken mapp)
-    puts "Skriv in vart i datorn dina bilder ligger i for mapp (mapp adressen)"
+    puts "Welcome to my Picturegallery program"
+    sleep 1.5
+    puts "Please write below were your pictures are localized from in your data. Please write the address."
     return gets.chomp 
   end
   
   def print_file (filename)                               #Metoden för att söka igenom en mapp och printa ut bilderna
     begin
-      puts "Tack. Programmet laddar nu upp dina bilder i ett bildgalleri" 
+      puts "Thank you user. Your picturegallery is being created" 
       sleep 2.0                                           #Programmerare måste få ha lite roligt också 
-      puts "Detta kan ta ett tag."
+      puts "This might take a while.."
       Dir.chdir(filename)                                 #Byt till det directory som vi har angett.
 
       
@@ -34,7 +36,7 @@ class Searching                                           #Class som håller all
     end
   
     rescue                                                #om mappen inte finns, frågar den igen som en while loop
-     puts "Mappen existera inte i din dator. Kontrollera vart den ligger och var vanligen skriv igen"
+     puts "Execuse me user, I'm sorry but there seems to be a problem with the folder adress you have been giving me... It's incorrect. Please retype it"
      file = ask_name()                                    #anropar funktionen
      print_file(file)                                     #skriver ut
   end
@@ -43,9 +45,9 @@ end
 def htmlsidan                                             #Metoden för att skapa själva html koden där bildgalleriet ska synas.  
  
   Dir.chdir("c:/Temp/test")                               #Ändra dit där filerna ligger.    
-  fileHtml = File.new("Marcus.html", "w+")                #Öppna en ny html fil.
+  fileHtml = File.new("Gallery.html", "w+")                #Öppna en ny html fil.
   fileHtml.puts "<HTML><BODY BGCOLOR='black'>"
-  fileHtml.puts "<CENTER><FONT COLOR='white'><TH><h1>Marcus Bildgalleri hemsida</h1></TH></FONT></CENTER><br>"
+  fileHtml.puts "<CENTER><FONT COLOR='white'><TH><h1>You're Picturegallery</h1></TH></FONT></CENTER><br>"
   fileHtml.puts "<TABLE BORDER='1' ALIGN='center'>"
   i = 0                                                   #Starta en räknare för att itterera genom alla thumbnails.     
   td = 0                                                  #Starta en räknare för att dela upp bilderna i rader om fyra bilder-   
@@ -61,7 +63,7 @@ def htmlsidan                                             #Metoden för att skap
   fileHtml.puts "</TABLE>"                                #Avslutar tabellen i html
   fileHtml.puts "</BODY></HTML>"                          #Avsluta html sidan
   fileHtml.close()                                        #Stäng html filen
-  system("start c:/Temp/test/Marcus.html")                #Startar bildgalleriet.
+  system("start c:/Temp/test/Gallery.html")                #Startar bildgalleriet.
 end
 end
 

@@ -6,17 +6,17 @@ require "mini_magick"
 
 
 class Searching
-  @@bilder                                                #Class variabel som håller bilderna
+  @@pictures                                                #Class variabel som håller bilderna
   @@thumbnail                                             #Class variable som håller alla thumbnails
   @@folder                                                #Class variable som håller foldern där bilderna ligger
   @@folderdest                                            #Class variable som håller destinations foldern
     
   def copy_files                                           #Funktionen för att kopiera bilderna till destinationen.
   
-      @@bilder.each { |f| FileUtils.cp File.expand_path(f), @@folderdest} #Kopierar varje fil till destinationen
+      @@pictures.each { |f| FileUtils.cp File.expand_path(f), @@folderdest} #Kopierar varje fil till destinationen
       Dir.chdir(@@folderdest)                             #Ändrar katalogen till dest foldern så vi kan läsa in alla bilderna nedan. 
-      @@bilder.clear                                      #Tömmer class variablen för den innehåller själva pathen plus filen
-      @@bilder =Dir['*.{jpg,png,gif}']                    #lagrar endast bils namnen i variabeln.  
+      @@pictures.clear                                      #Tömmer class variablen för den innehåller själva pathen plus filen
+      @@pictures =Dir['*.{jpg,png,gif}']                    #lagrar endast bils namnen i variabeln.  
        
   end
   
@@ -42,7 +42,7 @@ def htmlsidan
   i = 0
   td = 0
   while i < @@thumbnails.length
-  fileHtml.puts "<TD><a href=\"#{@@bilder[i]}\"><img src=\"#{@@thumbnails[i]}\"></a></TD>"
+  fileHtml.puts "<TD><a href=\"#{@@pictures[i]}\"><img src=\"#{@@thumbnails[i]}\"></a></TD>"
   i=i+1
   td = td+1
   if td == 4
@@ -53,18 +53,18 @@ def htmlsidan
   fileHtml.puts "</TABLE>"
   fileHtml.puts "</BODY></HTML>"
   fileHtml.close()
-  puts "Antligen klar med bildgalleriet"
+  puts "You're Picturegalllery is completed"
 end
 
 def grafiken
 
   root = TkRoot.new {
-  title  "Marcus Bildgalleri"
+  title  "Marcus Picturegalllery"
   background "gold"
   minsize(175,230)
   }
   
-  menu_click_folder = Proc.new {             #tillverkning av rutan, en procidur (prod)
+  choice_pic_map = Proc.new {             #tillverkning av rutan, en procidur (prod)
    dirname = Tk.chooseDirectory
    puts dirname
    if dirname == ""
@@ -72,14 +72,14 @@ def grafiken
    else
    Dir.chdir(dirname)
    Dir.pwd
-     @@bilder = Dir.glob('**/*.{jpg,png,gif}')
+     @@pictures = Dir.glob('**/*.{jpg,png,gif}')
    
-    if @@bilder.empty?            # lite som en rekrusiv prog
+    if @@pictures.empty?            # lite som en rekrusiv prog
       Tk.messageBox(
            'type'    => "ok",  
            'icon'    => "info", 
-           'title'   => "Klar",
-           'message' => "Hittade inga bilder i foldern prova igen"
+           'title'   => "Done",
+           'message' => "Didn't find any picture in this folder. Sorry"
          )
     else
 
@@ -99,9 +99,9 @@ def grafiken
          progress.place('height' => 25,'width'  => 200,'x' => 50,'y'=> 150)
          Thread.new do
            progress.start
-           @@bilder.each do |bild|
+           @@pictures.each do |img|
              puts bild
-             generate bild, "thumb"+bild, :thumb
+             generate bild, "thumb"+img, :thumb
            end
          htmlsidan
          progress.stop
@@ -110,31 +110,26 @@ def grafiken
                                     'type'    => "ok",  
                                     'icon'    => "info", 
                                     'title'   => "Klar",
-                                    'message' => "Bildagalleriet ar klart")
+                                    'message' => "You're picture gallery is completed")
            
          end  
  
   }
     
   
-  menu_click = Proc.new {
-    Tk.messageBox(
-      'type'    => "ok",  
-      'icon'    => "info",
-      'title'   => "Title",
-      'message' => "Message"
-    )
+  close_program = Proc.new {
+    root.destroy
   }
-    menu_click2 = Proc.new {
+    test = Proc.new {
         Tk.messageBox(
           'type'    => "ok",  
           'icon'    => "info",
-          'title'   => "Title",
-          'message' => "Bra Jobbat!"
+          'title'   => "Test123",
+          'message' => "Testbutton"
         )
     
   }
-  menu_click3 = Proc.new {
+  choice_destination = Proc.new {
     @@folderdest = Tk.chooseDirectory  
       
     }
@@ -147,12 +142,10 @@ def grafiken
     
   }
   
-  text.insert 1.40, "Hej och valkommen till bildgallerigeneratorn  
-For att tillverka ditt bildgalleri moste du valja en mapp dar du vill ta ut dina bilder ifron och en destinations mapp dar dina bilder laggar sig i. Var vanligen valj detta innan du startar programmet"
-  #text i rutan
+  text.insert 1.40, "Welcome to this program! Follow the instroductions under File then press the button to create the gallery"
 
   button_start = TkButton.new(root) do        #Knappen skapas       
-    text "Skapa bildgalleriet"
+    text "Create Picturegalllery"
     borderwidth 5
     font TkFont.new('times 15 bold')
     foreground  "blue"
@@ -165,27 +158,27 @@ For att tillverka ditt bildgalleri moste du valja en mapp dar du vill ta ut dina
   file_menu = TkMenu.new(root)        #Flikarna i menu_bar
   
   file_menu.add('command',
-                'label'     => "Valj vilken mapp du vill ta ut dina bilder ifran",
-                'command'   => menu_click_folder,
+                'label'     => "Choice your folder were the pictures you want to make a picturegallery from are localized ",
+                'command'   => choice_pic_map,
                 'underline' => 0)
   file_menu.add('command',
-                'label'     => "Valj vilken destinations mapp dina bilder vill vara i",
-                'command'   => menu_click3,
+                'label'     => "Choice an destination folder for your pictures and thumbnails",
+                'command'   => choice_destination,
                 'underline' => 0)
   file_menu.add('command',
                 'label'     => "Close",
-                'command'   => menu_click,
+                'command'   => close_program,
                 'underline' => 0)
                 
   file_menu.add('command',
-                  'label'     => "Tryck",
-                  'command'   => menu_click2,
+                  'label'     => "Press it..",
+                  'command'   => test,
                   'underline' => 0)
   
   menu_bar = TkMenu.new                 #Skapar våran flikbar
   menu_bar.add('cascade',
                'menu'  => file_menu,  
-               'label' => "Bildgalleri Funktioner")
+               'label' => "File")
   
   root.menu(menu_bar)
   
