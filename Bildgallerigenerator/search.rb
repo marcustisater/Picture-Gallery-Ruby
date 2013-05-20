@@ -42,7 +42,7 @@ class Searching                                           #Class som håller all
   end
 end
 
-def htmlsidan                                             #Metoden för att skapa själva html koden där bildgalleriet ska synas.  
+def htmlwebpage                                             #Metoden för att skapa själva html koden där bildgalleriet ska synas.  
  
   Dir.chdir("c:/Temp/test")                               #Ändra dit där filerna ligger.    
   fileHtml = File.new("Gallery.html", "w+")                #Öppna en ny html fil.
