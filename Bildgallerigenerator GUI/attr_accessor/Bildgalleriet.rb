@@ -74,7 +74,6 @@ class Senap
 
   def initialize()
     @app = Searching.new();
-    @folderdest = "";
   end
 
   def run
@@ -103,7 +102,7 @@ class Senap
   start = Proc.new {   #Vad som sker när vi klickar på start pic gallery knappen
     
     puts @folderdest
-       @bilderna = @app.copy_files(@folderdest)
+       @bilderna = @app.copy_files(@folderdest)  #returnerar bilder till bilderna 
          progress =  Tk::Tile::Progressbar.new(root, :mode=>'indeterminate', :orient=>'horizontal')
          progress.pack
          progress.place('height' => 25,'width'  => 200,'x' => 50,'y'=> 150)
