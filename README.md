@@ -1,11 +1,31 @@
-Bildgallerigenerator
-====================
+Picture Gallery
 
-Bildgallerigenerator, Programmerings uppgift 
+------------------------------------------------------------------------------------------------------------
+
+To launch this application you will need to have the following gems
+
+gem install devil
+gem install fileutils
 
 
-Picturegallery generator. To launch this application you will need to have:
+How to Launch GUI Application:
 
-TK (for the gui app)
-Devil
-Image_magick
+These are the requirements:
+
+require 'Devil'
+require 'fileutils'
+require 'tk'
+require "mini_magick"
+
+
+Launch through cmd/terminal text based:
+
+These are the requirements:
+
+require 'Devil'
+require 'fileutils'
+
+------------------------------------------------------------------------------------------------------------
+
+
+
