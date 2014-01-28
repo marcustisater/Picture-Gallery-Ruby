@@ -1,5 +1,8 @@
 Picture Gallery
 
+This was based on school work so the comments on the code, and info files are in Swedish. I'm sorry for that!
+Hope you like this picture gallery! :)
+
 ----------------------------------------------------------------------------------------------------------
 
 To launch this application you will need to have the following gems
