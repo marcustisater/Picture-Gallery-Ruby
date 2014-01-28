@@ -30,6 +30,18 @@ require 'Devil'
 
 require 'fileutils'
 
+----------------------------------------------------------------------------------------------------------
+
+To launch this application you will have to start it through the termian or CMD
+
+To start GUI type:
+
+ruby startgui.rb
+
+To start the text-based one:
+
+ruby start.rb
+
 
 ----------------------------------------------------------------------------------------------------------
 
