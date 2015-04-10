@@ -1,52 +1,9 @@
-Picture Gallery
+Picture Gallery.
 
-This was based on school work so the comments on the code, and info files are in Swedish. I'm sorry for that!
-Hope you like this picture gallery! :)
+This is a awesome picture gallery that turns any jpg,png,gif photos into a photoalbum with thumbnails. Enjoy.
+Open GUI with ruby startgui.rb
 
-----------------------------------------------------------------------------------------------------------
-
-To launch this application you will need to have the following gems
-
-gem install devil
-
-gem install fileutils
-
-
-How to Launch GUI Application:
-
-These are the requirements:
-
-require 'Devil'
-
-require 'fileutils'
-
-require 'tk'
-
-require "mini_magick"
-
-
-Launch through cmd/terminal text based:
-
-These are the requirements:
-
-require 'Devil'
-
-require 'fileutils'
-
-----------------------------------------------------------------------------------------------------------
-
-To launch this application you will have to start it through the termian or CMD
-
-To start GUI type:
-
-ruby startgui.rb
-
-To start the text-based one:
-
-ruby start.rb
-
-
-----------------------------------------------------------------------------------------------------------
+Instructions coming soon :)
 
 Questions/feedback can be sent into 
 marcus.tisater@gmail.com
